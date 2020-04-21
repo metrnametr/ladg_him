@@ -9,6 +9,12 @@ scrollArrow.onclick = () => {
 
 let transformX = 0;
 
+const links = document.querySelectorAll('header nav li a');
+
+function clearLink() {
+    links.forEach(link => link.classList.remove('active'));
+}
+
 window.addEventListener('scroll', (e) => {
     const scroll = document.documentElement.getBoundingClientRect().top;
     if (scroll < -300) {
@@ -21,5 +27,24 @@ window.addEventListener('scroll', (e) => {
         scrollArrow.style.opacity = '1';
     }
 
-    pageTitle.style.transform = `translateX(${transformX}px)`;    
+    pageTitle.style.transform = `translateX(${transformX}px)`;
+
+
+    const aboutUs = document.querySelector('.about-us').getBoundingClientRect()
+    const aboutUsTop = aboutUs.top;
+    const aboutUsHeight = aboutUs.height;
+
+    const portfolio = document.querySelector('.portfolio').getBoundingClientRect()
+    const portfolioTop = portfolio.top;
+    const portfolioHeight = portfolio.height;
+
+
+    if (aboutUsTop <= 0 && aboutUsTop >= 0 - aboutUsHeight) {
+        links[0].classList.add('active');
+    } else if (portfolioTop <= 0 && portfolioTop >= 0 - portfolioHeight) {
+        links[1].classList.add('active');
+    } else {
+        clearLink();
+    }
+
 })
